@@ -7,6 +7,8 @@ import RowAndColumnSpacing from './components/RowAndColumnSpacing';
 import Bollywood from './routers/Bollywood';
 import { BrowserRouter, Route, Routes, Router } from 'react-router-dom';
 import Home from './routers/Home';
+import World from './routers/World';
+import India from './routers/India';
 
 function App() {
   return (
@@ -16,8 +18,11 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="Bollywood" element={<Bollywood />} />
+          <Route exact path="/"  element={<Home />} />
+          <Route path='/home' element={<Home/>} />
+          <Route path="/bollywood" element={<Bollywood />} />
+          <Route path="/world" element={<World/>} />
+          <Route path="/india" element={<India/>} />
         </Routes>
       </BrowserRouter>
 

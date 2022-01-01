@@ -11,12 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import {BrowserRouter as Router , Route,  Link } from 'react-router-dom';
 
 
-const pages = ['Home', 'India', 'World', 'Sports', 'Business', 'Bollywood', 'State', 'City', 'Technology', 'Fashion', 'Astrology', 'Food', 'Health', 'Shopping', 'Movies'];
+const pages = [{name:'Home',link:'home'}, {name:'India',link:'india'}, {name:'World',link:'world'},{name: 'Sports',link:'sports'},{name: 'Business',link:'business'}, {name:'Bollywood',link:'bollywood'},{name:'State',link:'state'}, {name:'City',link:'city'},{name: 'Technology',link:'technology'}, {name: 'Fashion',link:'fashion'}, {name:'Astrology',link:'astrology'}, {name:'Food',link:'food'}, {name: 'Health',link:'health'} , {name:'Shopping',link:'shopping'},{name: 'Movies',link:'movies'}];
 const settings = ['Social Media', 'Wildlife', 'Environment', 'Startup'];
-const link = ['Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Movies'];
+const link = ['', 'india', 'world', 'sports', 'business', 'bollywood', 'state', 'city', 'technology', 'fashion', 'astrology', 'food', 'health', 'shopping', 'movies'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -73,8 +73,8 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">  <a href="/Bollywood">{page}</a> </Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">  <a href={page.link}>{page.name} </a> </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -90,11 +90,11 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <a href="/Bollywood">{page}</a>
+                 <a href={page.link}>{page.name} </a>
               </Button>
             ))}
           </Box>

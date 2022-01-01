@@ -1,0 +1,10 @@
+ #appbar .MuiContainer-root {
+    background-color: white;
+
+}
+
+.appbarTitle {
+    width: 100%;
+     text-align: center;
+     color: black; 
+    }

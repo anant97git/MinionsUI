@@ -11,12 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import './TopNav.css';
+import { Link } from 'react-router-dom';
 
-const pages = [];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const TopNav = () => {
+const pages = ['Home', 'India', 'World', 'Sports', 'Business', 'Bollywood', 'State', 'City', 'Technology', 'Fashion', 'Astrology', 'Food', 'Health', 'Shopping', 'Movies'];
+const settings = ['Social Media', 'Wildlife', 'Environment', 'Startup'];
+const link = ['Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Bollywood', 'Movies'];
+
+const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,14 +38,55 @@ const TopNav = () => {
   };
 
   return (
-    <AppBar position="static" id="appbar">
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
-        <div className='appbarTitle'>
-          YourNews.com
-          </div>
-          
+
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">  <a href="/Bollywood">{page}</a> </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+          >
+
+          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -51,7 +94,7 @@ const TopNav = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <a href="/Bollywood">{page}</a>
               </Button>
             ))}
           </Box>
@@ -59,7 +102,8 @@ const TopNav = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                More
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
               </IconButton>
             </Tooltip>
             <Menu
@@ -90,4 +134,4 @@ const TopNav = () => {
     </AppBar>
   );
 };
-export default TopNav;
+export default ResponsiveAppBar;

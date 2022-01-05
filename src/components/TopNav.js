@@ -39,11 +39,11 @@ const TopNav = () => {
     <AppBar position="static" id="appbar">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
-        <div className='appbarTitle'>
-          YourNews.com
+
+          <div className='appbarTitle'>
+            YourNews.com
           </div>
-          
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -58,8 +58,13 @@ const TopNav = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}> */}
+              <IconButton sx={{ p: 0 }}>
+                <a
+                  href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
+                >Login</a>
+
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
               </IconButton>
             </Tooltip>
             <Menu

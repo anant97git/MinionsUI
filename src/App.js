@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes, Router } from 'react-router-dom';
 import Home from './routers/Home';
 import World from './routers/World';
 import India from './routers/India';
+import Inline from './components/Inline';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           <Route path="/india" element={<India/>} />
         </Routes>
       </BrowserRouter>
-
+      <SideNav/>
+      {/* <Inline/> */}
 
     </div>
   );

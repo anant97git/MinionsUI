@@ -38,22 +38,26 @@ const TopNav = () => {
       const ticketId = queryParams.get('ticketId');
       const channel = queryParams.get('channel')
       const site = queryParams.get('site');
-
       console.log(ticketId)
-
+      const getUserDetailUrl = 'http://jssostg.indiatimes.com/sso/crossdomain/v1liteUserProfile';
+      const object = {
+        responsetype:'json',
+        type:'JSON',
+        update:'true',
+        siteId:'eec5b06ed436ddefdb4c3a59c5ea0468',
+        channel:'minions',
+        ticketId: ticketId
+      }
       const getUserDetailApi = 'http://jssostg.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&channel=minions&ticketId=' + ticketId;
       console.log(getUserDetailApi)
-      console.log(getUserDetailApi)
 
-      fetch(getUserDetailApi)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
+      axios.get('https://serene-caverns-15409.herokuapp.com/'+getUserDetailApi).then((response) => {
+        response.data.code==="200"? setUsername(response.data.firstName):setUsername(null);
+          console.log(response.data);
+          setIsLoggedIn(1); }).catch(error => console.log(error))
+
 
       console.log("--- " + ticketId);
-
-
-
-      setIsLoggedIn(1)
     }
 
   }, [window.location.href])
@@ -115,7 +119,7 @@ const TopNav = () => {
               </IconButton> */}
 
               <IconButton>
-                {isLoggedIn ? "LoggedIn" :
+                {isLoggedIn ? username :
                   <a
                     href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
                   >Login</a>

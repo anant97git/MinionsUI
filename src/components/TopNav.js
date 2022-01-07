@@ -41,20 +41,29 @@ const TopNav = () => {
       console.log(ticketId)
       const getUserDetailUrl = 'http://jssostg.indiatimes.com/sso/crossdomain/v1liteUserProfile';
       const object = {
-        responsetype:'json',
-        type:'JSON',
-        update:'true',
-        siteId:'eec5b06ed436ddefdb4c3a59c5ea0468',
-        channel:'minions',
+        responsetype: 'json',
+        type: 'JSON',
+        update: 'true',
+        siteId: 'eec5b06ed436ddefdb4c3a59c5ea0468',
+        channel: 'minions',
         ticketId: ticketId
       }
       const getUserDetailApi = 'http://jssostg.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&channel=minions&ticketId=' + ticketId;
       console.log(getUserDetailApi)
 
-      axios.get('https://serene-caverns-15409.herokuapp.com/'+getUserDetailApi).then((response) => {
-        response.data.code==="200"? setUsername(response.data.firstName):setUsername(null);
-          console.log(response.data);
-          setIsLoggedIn(1); }).catch(error => console.log(error))
+      axios.get('https://serene-caverns-15409.herokuapp.com/' + getUserDetailApi).then((response) => {
+        response.data.code === "200" ? setUsername(response.data.firstName) : setUsername(null);
+        const qparam = new URLSearchParams(window.location.search);
+        qparam.delete('ticketId');
+        qparam.delete('site');
+        console.log('qparam :- ' + qparam);
+        qparam.delete('channel')
+        console.log('qparam :- ' + qparam)
+        qparam.delete('status');
+        console.log('qparam :-' + qparam);
+        console.log(response.data);
+        setIsLoggedIn(1);
+      }).catch(error => console.log(error))
 
 
       console.log("--- " + ticketId);
@@ -62,6 +71,20 @@ const TopNav = () => {
 
   }, [window.location.href])
 
+  const callLogout = () => {
+    // const logoutApi = 'http://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions';
+
+    // axios.get('https://serene-caverns-15409.herokuapp.com/' + logoutApi)
+    //   .then(response => console.log('response of logout api :- ' + response))
+    //   .catch(error => console.log(error))
+
+    // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // console.log("logout call");
+
+    setIsLoggedIn(1);
+    setUsername(null);
+    window.location.href = 'http://localhost:3000/';
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -77,6 +100,8 @@ const TopNav = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+
 
   const loggedInClicked = () => {
     setIsLoggedIn(1);
@@ -119,7 +144,7 @@ const TopNav = () => {
               </IconButton> */}
 
               <IconButton>
-                {isLoggedIn ? username :
+                {isLoggedIn ? <div> {username} <a onClick={callLogout}>Logout</a></div> :
                   <a
                     href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
                   >Login</a>
@@ -153,7 +178,7 @@ const TopNav = () => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 };
 export default TopNav;

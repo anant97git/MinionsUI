@@ -144,7 +144,11 @@ const TopNav = () => {
               </IconButton> */}
 
               <IconButton>
-                {isLoggedIn ? <div> {username} <a onClick={callLogout}>Logout</a></div> :
+                {/* {isLoggedIn ? <div> {username} <a onClick={callLogout}  */}
+
+                {isLoggedIn ? <div> {username} <a
+                  href='https://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions&ru=http://localhost:3000/'
+                >Logout</a></div> :
                   <a
                     href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
                   >Login</a>

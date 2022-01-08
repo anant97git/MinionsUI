@@ -5,6 +5,8 @@ import "./styles.css";
 import { SliderData } from './SliderData';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import ActionAreaCard from "../components/ActionAreaCard";
+import { Title } from "@mui/icons-material";
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -13,34 +15,85 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4 },
 ];
 
-const getNews = () => {
-  console.log('getNews');
-}
+
 
 function Home() {
 
+
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  const [documents, setDocuments] = useState([]);
+
   useEffect(() => {
+        console.log('getNews');
+
+        const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json';
+        console.log(getTrendingNewsApi);
+
+        fetch(getTrendingNewsApi)
+          .then(response => response.json())
+          .then(response => {
+            console.log('type of response :- ', typeof response);
+            console.log('response :-  ', response);
+            console.log('type of doc :- ', typeof response.result.doc);
+            console.log('doc :-  ', response.result.doc);
+            console.log(Array.isArray(response.result.doc));
+
+            setDocuments(response.result.doc)
+
+            documents.forEach(element => {
+              console.log('el :', element)
+            });
+
+            setDataLoaded(true);
+
+          })
+          .catch(error => console.log(error))
+  }, [])
+
+
+  const getNews = () => {
+    console.log('getNews');
+
     const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json';
     console.log(getTrendingNewsApi);
 
-    axios.get('https://serene-caverns-15409.herokuapp.com/' + getTrendingNewsApi)
-      .then(response => console.log(response))
+    fetch(getTrendingNewsApi)
+      .then(response => response.json())
+      .then(response => {
+        console.log('type of response :- ', typeof response);
+        console.log('response :-  ', response);
+        console.log('type of doc :- ', typeof response.result.doc);
+        console.log('doc :-  ', response.result.doc);
+        console.log(Array.isArray(response.result.doc));
+
+        setDocuments(response.result.doc)
+
+        documents.forEach(element => {
+          console.log('el :', element)
+        });
+
+        setDataLoaded(true);
+
+      })
       .catch(error => console.log(error))
-
-    // axios.get('https://jsonplaceholder.typicode.com/posts')
-    //   .then(response => console.log('new req :- ' + response))
-    //   .catch(error => console.log('neq error :- ' + error))
-
-  }, [])
+  }
 
   return (
     <>
       {/* <h1 style={{ textAlign: "center" }}>Example to setup your carousel in react</h1> */}
       <div className="App1">
         <Carousel breakPoints={breakPoints}>
-          {SliderData.map((slide) => {
-            return (<Item><img src={slide.image} alt='travel image' className='image' /></Item>)
-          })}
+          {console.log('dl 1', dataLoaded)}
+          {console.log('siz of doc :- ', documents.length, dataLoaded)}
+          {dataLoaded ? documents.map((document) =>
+            <Item><ActionAreaCard
+              title={document.title}
+              subject={document.subject}
+              story={document.story}
+              key_source={document.key_source}
+            />{console.log('dl 2', dataLoaded)}</Item>
+          ) : null}
         </Carousel>
       </div>
       <hr />
@@ -48,6 +101,7 @@ function Home() {
 
       </div>
       <h1><a onClick={getNews}>Get News</a></h1>
+
     </>
   );
 }

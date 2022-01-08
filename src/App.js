@@ -19,14 +19,14 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route exact path="/"  element={<Home />} />
-          <Route path='/home' element={<Home/>} />
+          <Route exact path="/" element={<Home />} />
+          <Route path='/home' element={<Home />} />
           <Route path="/bollywood" element={<Bollywood />} />
-          <Route path="/world" element={<World/>} />
-          <Route path="/india" element={<India/>} />
+          <Route path="/world" element={<World />} />
+          <Route path="/india" element={<India />} />
         </Routes>
       </BrowserRouter>
-      <SideNav/>
+      {/* <SideNav/> */}
       {/* <Inline/> */}
 
     </div>

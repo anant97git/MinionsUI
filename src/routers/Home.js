@@ -23,10 +23,13 @@ function Home() {
     const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json';
     console.log(getTrendingNewsApi);
 
-    axios.get('http://serene-caverns-15409.herokuapp.com/' + getTrendingNewsApi)
+    axios.get('https://serene-caverns-15409.herokuapp.com/' + getTrendingNewsApi)
       .then(response => console.log(response))
       .catch(error => console.log(error))
 
+    // axios.get('https://jsonplaceholder.typicode.com/posts')
+    //   .then(response => console.log('new req :- ' + response))
+    //   .catch(error => console.log('neq error :- ' + error))
 
   }, [])
 

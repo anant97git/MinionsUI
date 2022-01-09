@@ -82,7 +82,7 @@ function Home() {
         {news.subject}
         {/* <p>{news.story}</p> */}
         <br />
-        <font color="blue">{news.key_source} </font>
+        <font color="blue"> <a href={news.key_source}>Read fully story</a> </font>
         <br />
       </center>
     </div>)

@@ -10,6 +10,7 @@ import Home from './routers/Home';
 import World from './routers/World';
 import India from './routers/India';
 import Inline from './components/Inline';
+import Sports from './routers/Sports';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/bollywood" element={<Bollywood />} />
           <Route path="/world" element={<World />} />
           <Route path="/india" element={<India />} />
+          <Route path="/sports" element={<Sports />} />
         </Routes>
       </BrowserRouter>
       {/* <SideNav/> */}

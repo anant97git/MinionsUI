@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import ActionAreaCard from "../components/ActionAreaCard";
 import { Title } from "@mui/icons-material";
 
+
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2 },
@@ -24,35 +25,9 @@ function Home() {
 
   const [documents, setDocuments] = useState([]);
 
+  const [normalNews, setNormalNews] = useState([]);
+
   useEffect(() => {
-        console.log('getNews');
-
-        const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json';
-        console.log(getTrendingNewsApi);
-
-        fetch(getTrendingNewsApi)
-          .then(response => response.json())
-          .then(response => {
-            console.log('type of response :- ', typeof response);
-            console.log('response :-  ', response);
-            console.log('type of doc :- ', typeof response.result.doc);
-            console.log('doc :-  ', response.result.doc);
-            console.log(Array.isArray(response.result.doc));
-
-            setDocuments(response.result.doc)
-
-            documents.forEach(element => {
-              console.log('el :', element)
-            });
-
-            setDataLoaded(true);
-
-          })
-          .catch(error => console.log(error))
-  }, [])
-
-
-  const getNews = () => {
     console.log('getNews');
 
     const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json';
@@ -74,10 +49,45 @@ function Home() {
         });
 
         setDataLoaded(true);
-
       })
       .catch(error => console.log(error))
-  }
+
+    const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json';
+
+    fetch(getNormalNewsApi)
+      .then(response => response.json())
+      .then(response => {
+        console.log('type of response :- ', typeof response);
+        console.log('response :-  ', response);
+        console.log('type of doc :- ', typeof response.result.doc);
+        console.log('doc :-  ', response.result.doc);
+        console.log(Array.isArray(response.result.doc));
+
+        setNormalNews(response.result.doc)
+
+        normalNews.forEach(element => {
+          console.log('el :', element)
+        });
+
+        setDataLoaded(true);
+      })
+      .catch(error => console.log(error))
+
+  }, [])
+
+  const normalNewsList = normalNews.map((news) => (
+    <div>
+      <center>
+        <h3>{news.title}</h3>
+        {news.subject}
+        {/* <p>{news.story}</p> */}
+        <br />
+        <font color="blue">{news.key_source} </font>
+        <br />
+      </center>
+    </div>)
+  )
+
 
   return (
     <>
@@ -97,10 +107,10 @@ function Home() {
         </Carousel>
       </div>
       <hr />
-      <div>
 
+      <div>
+        {normalNewsList}
       </div>
-      <h1><a onClick={getNews}>Get News</a></h1>
 
     </>
   );
@@ -109,31 +119,3 @@ function Home() {
 export default Home;
 
 
-// Trending news api :-
-// http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json
-
-// Normal api :- (not logged in)
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json
-
-// for India
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&category=India
-
-
-// for India Business
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&category=India%20Business
-
-// for News
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&category=News
-
-// for Science
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&category=Science
-
-
-// for person (with keyword of modi)
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&keyword=Modi
-
-
-// for city basis (goa)
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&coverage=Goa
-
-// http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&coverage=Delhi

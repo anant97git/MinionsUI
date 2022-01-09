@@ -7,7 +7,7 @@ import { CardActionArea } from '@mui/material';
 
 export default function ActionAreaCard({ title, subject, story, key_source }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 550 }}>
       <CardActionArea>
         <CardMedia
           component="img"

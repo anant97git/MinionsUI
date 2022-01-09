@@ -26,7 +26,7 @@ const TopNav = () => {
 
   const [username, setUsername] = useState(null);
 
-  const [userEmail, setUserEmail] = useState(null);
+  const [useremail, setUseremail] = useState(null);
 
   // api for validating user :- https://jsso.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&ticketId=
 
@@ -54,9 +54,12 @@ const TopNav = () => {
       console.log(getUserDetailApi)
 
       axios.get('https://serene-caverns-15409.herokuapp.com/' + getUserDetailApi).then((response) => {
+
         response.data.code === "200" ? setUsername(response.data.firstName) : setUsername(null);
-        response.data.code === "200" ? setUserEmail(response.data.primaryEmailId) : setUserEmail(null);
-        console.log(userEmail);
+        response.data.code === "200" ? setUseremail(response.data.primaryEmailId) : setUseremail(null);
+
+        console.log("primary email :- ", response.data.primaryEmailId);
+        console.log('userEmail :- ', useremail);
         const qparam = new URLSearchParams(window.location.search);
         qparam.delete('ticketId');
         qparam.delete('site');
@@ -76,18 +79,9 @@ const TopNav = () => {
   }, [window.location.href])
 
   const callLogout = () => {
-    // const logoutApi = 'http://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions';
-
-    // axios.get('https://serene-caverns-15409.herokuapp.com/' + logoutApi)
-    //   .then(response => console.log('response of logout api :- ' + response))
-    //   .catch(error => console.log(error))
-
-    // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // console.log("logout call");
-
     setIsLoggedIn(1);
     setUsername(null);
-    setUserEmail(null);
+    setUseremail(null);
     window.location.href = 'http://localhost:3000/';
   }
 
@@ -138,15 +132,7 @@ const TopNav = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
 
-              {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <IconButton sx={{ p: 0 }}>
-                <a
-                  href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
-                >Login</a>
-                {/* onClick={ } 
 
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> 
-              </IconButton> */}
 
               <IconButton>
                 {/* {isLoggedIn ? <div> {username} <a onClick={callLogout}  */}

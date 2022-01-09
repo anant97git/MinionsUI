@@ -26,6 +26,8 @@ const TopNav = () => {
 
   const [username, setUsername] = useState(null);
 
+  const [userEmail, setUserEmail] = useState(null);
+
   // api for validating user :- https://jsso.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&ticketId=
 
   useEffect(() => {
@@ -53,6 +55,8 @@ const TopNav = () => {
 
       axios.get('https://serene-caverns-15409.herokuapp.com/' + getUserDetailApi).then((response) => {
         response.data.code === "200" ? setUsername(response.data.firstName) : setUsername(null);
+        response.data.code === "200" ? setUserEmail(response.data.primaryEmailId) : setUserEmail(null);
+        console.log(userEmail);
         const qparam = new URLSearchParams(window.location.search);
         qparam.delete('ticketId');
         qparam.delete('site');
@@ -83,6 +87,7 @@ const TopNav = () => {
 
     setIsLoggedIn(1);
     setUsername(null);
+    setUserEmail(null);
     window.location.href = 'http://localhost:3000/';
   }
 

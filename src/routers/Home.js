@@ -104,7 +104,7 @@ function Home() {
               subject={document.subject}
               story={document.story}
               key_source={document.key_source}
-              msid={document.msid!==undefined?document.msid:null}
+              msid={document.datasourceId !== undefined ? document.datasourceId : null}
             />{console.log('dl 2', dataLoaded)}</Item>
           ) : null}
         </Carousel>

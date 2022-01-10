@@ -55,8 +55,22 @@ const TopNav = () => {
 
       axios.get('https://serene-caverns-15409.herokuapp.com/' + getUserDetailApi).then((response) => {
 
-        response.data.code === "200" ? setUsername(response.data.firstName) : setUsername(null);
-        response.data.code === "200" ? setUseremail(response.data.primaryEmailId) : setUseremail(null);
+        if(response.data.code === "200")
+        {
+          setUsername(response.data.firstName);
+          setUseremail(response.data.primaryEmailId);
+          console.log(useremail)
+          console.log(response.data.firstName);
+          console.log("primary email :- ", response.data.primaryEmailId);
+          console.log('userEmail :- ', useremail);
+        }
+        else
+        {
+          setUsername(null);
+          setUseremail(null);
+        }
+        // response.data.code === "200" ? setUsername(response.data.firstName) : setUsername(null);
+        // response.data.code === "200" ? setUseremail(response.data.primaryEmailId) : setUseremail(null);
 
         console.log("primary email :- ", response.data.primaryEmailId);
         console.log('userEmail :- ', useremail);

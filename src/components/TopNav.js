@@ -59,21 +59,12 @@ const TopNav = () => {
         {
           setUsername(response.data.firstName);
           setUseremail(response.data.primaryEmailId);
-          console.log(useremail)
-          console.log(response.data.firstName);
-          console.log("primary email :- ", response.data.primaryEmailId);
-          console.log('userEmail :- ', useremail);
         }
         else
         {
           setUsername(null);
           setUseremail(null);
         }
-        // response.data.code === "200" ? setUsername(response.data.firstName) : setUsername(null);
-        // response.data.code === "200" ? setUseremail(response.data.primaryEmailId) : setUseremail(null);
-
-        console.log("primary email :- ", response.data.primaryEmailId);
-        console.log('userEmail :- ', useremail);
         const qparam = new URLSearchParams(window.location.search);
         qparam.delete('ticketId');
         qparam.delete('site');
@@ -150,8 +141,8 @@ const TopNav = () => {
 
               <IconButton>
                 {/* {isLoggedIn ? <div> {username} <a onClick={callLogout}  */}
-
-                {isLoggedIn ? <div> {username} <a
+      
+                {isLoggedIn ? <div> {username} {useremail}<a
                   href='https://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions&ru=http://localhost:3000/'
                 >Logout</a></div> :
                   <a

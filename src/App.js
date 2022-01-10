@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TopNav from './components/TopNav';
-import { SideNav } from './components/SideNav';
+import  SideNav  from './components/SideNav';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import RowAndColumnSpacing from './components/RowAndColumnSpacing';
 import Bollywood from './routers/Bollywood';
@@ -14,20 +14,22 @@ import Sports from './routers/Sports';
 
 function App() {
   return (
-    <div className="App">
+    <div><div className="App">
       <TopNav />
-      <ResponsiveAppBar />
-
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path='/home' element={<Home />} />
-          <Route path="/bollywood" element={<Bollywood />} />
-          <Route path="/world" element={<World />} />
-          <Route path="/india" element={<India />} />
-          <Route path="/sports" element={<Sports />} />
-        </Routes>
-      </BrowserRouter>
+    </div>
+    <div><SideNav /></div>
+    <div className="MainContent">
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path='/home' element={<Home />} />
+            <Route path="/bollywood" element={<Bollywood />} />
+            <Route path="/world" element={<World />} />
+            <Route path="/india" element={<India />} />
+            <Route path="/sports" element={<Sports />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
       {/* <SideNav/> */}
       {/* <Inline/> */}
 

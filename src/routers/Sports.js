@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
+import './boxDesign.css';
+
 
 
 const Sports = () => {
@@ -37,23 +39,18 @@ const Sports = () => {
     }, [])
 
     // Note :- It has some issues
-    // const sportsNewsList = (sportsNews === []) ?
-    //     <div>
-    //         <h1>No data obtained</h1>
-    //     </div> :
-    //     (sportsNews.map((news) => (
-    //         <div>
-    //             <center>
-    //                 <h3>{news.title}</h3>
-    //                 {news.subject}
-    //                 {/* <p>{news.story}</p> */}
-    //                 <br />
-    //                 <font color="blue"> <a href={news.key_source}>Read fully story</a> </font>
-    //                 <br />
-    //             </center>
-    //         </div>
-    //     )
-    //     ))
+    const sportsNewsList = sportsNews.map((news) => (
+        <div>
+            <div className='box'>
+                <h3>{news.title}</h3>
+                {news.subject}
+                {/* <p>{news.story}</p> */}
+                <br />
+                <font color="blue"> <a href={news.key_source}>Read fully story</a> </font>
+            </div><br />
+        </div>
+    )
+    )
 
     return (
         <div>
@@ -61,7 +58,7 @@ const Sports = () => {
                 <h1>Hello Sports</h1>
             </div>
             <div>
-                {/* {sportsNewsList} */}
+                {sportsNewsList}
             </div>
         </div>
     )

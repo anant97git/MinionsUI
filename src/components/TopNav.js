@@ -55,13 +55,11 @@ const TopNav = () => {
 
       axios.get('https://serene-caverns-15409.herokuapp.com/' + getUserDetailApi).then((response) => {
 
-        if(response.data.code === "200")
-        {
+        if (response.data.code === "200") {
           setUsername(response.data.firstName);
           setUseremail(response.data.primaryEmailId);
         }
-        else
-        {
+        else {
           setUsername(null);
           setUseremail(null);
         }
@@ -141,13 +139,15 @@ const TopNav = () => {
 
               <IconButton>
                 {/* {isLoggedIn ? <div> {username} <a onClick={callLogout}  */}
-      
-                {isLoggedIn ? <div> {username} {useremail}<a
-                  href='https://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions&ru=http://localhost:3000/'
-                >Logout</a></div> :
+
+                {isLoggedIn ? <div> {username} {useremail}
+                  <a
+                    href='https://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions&ru=http://localhost:3000/'
+                  > Logout  </a> </div> :
+
                   <a
                     href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
-                  >Login</a>
+                  >  Login  </a>
 
                 }
               </IconButton>

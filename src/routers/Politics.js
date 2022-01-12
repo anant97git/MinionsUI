@@ -12,20 +12,22 @@ const breakPoints = [
     // { width: 1200, itemsToShow: 4 },
 ];
 
-const World = () => {
 
-    const [worldNews, setWorldNews] = useState([]);
+const Politics = () => {
+
+    const [politicsNews, setPoliticsNews] = useState([]);
     const [useremail, setUseremail] = useState(null);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [normalWorldNews, setNormalWorldNews] = useState([]);
+    const [normalPoliticsNews, setNormalPoliticsNews] = useState([]);
+
+    const [cond, setCond] = useState(0);
 
     useEffect(() => {
 
-        console.log('top 10 world news');
+        console.log(' top 10 politics news');
+        const getPoliticsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&category=Politics&user=' + useremail;
 
-        const getTrendingWorldNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&coverage=International&user=' + useremail;
-
-        fetch(getTrendingWorldNewsApi)
+        fetch(getPoliticsNewsApi)
             .then(response => response.json())
             .then(response => {
                 console.log('type of response :- ', typeof response);
@@ -34,10 +36,9 @@ const World = () => {
                 console.log('doc :-  ', response.result.doc);
                 console.log(Array.isArray(response.result.doc));
 
-                setWorldNews(response.result.doc);
+                setPoliticsNews(response.result.doc);
 
                 setDataLoaded(true);
-
             })
             .catch(error => console.log(error))
 
@@ -45,11 +46,11 @@ const World = () => {
 
     useEffect(() => {
 
-        console.log('normal world news');
+        console.log('normal politics news');
 
-        const getNormalWorldNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=50&wt=json&coverage=International&user=' + useremail;
+        const getNormalPoliticsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=50&wt=json&category=Politics&user=' + useremail;
 
-        fetch(getNormalWorldNewsApi)
+        fetch(getNormalPoliticsNewsApi)
             .then(response => response.json())
             .then(response => {
                 console.log('type of response :- ', typeof response);
@@ -58,26 +59,29 @@ const World = () => {
                 console.log('doc :-  ', response.result.doc);
                 console.log(Array.isArray(response.result.doc));
 
-                setNormalWorldNews(response.result.doc);
+                setNormalPoliticsNews(response.result.doc);
 
             })
             .catch(error => console.log(error))
 
     }, [])
 
-    const normalWorldNewsList = normalWorldNews.map((news) => (
+    const normalPoliticsNewsList = (normalPoliticsNews.length === 0) ?
         <div>
-            <div className='box'>
-                <h3>{news.title}</h3>
-                {news.subject}
-                {/* <p>{news.story}</p> */}
-                <br />
-                <font color="blue"> <a href={news.key_source} target="_blank">Read fully story</a> </font>
-            </div><br />
-        </div>
-    )
-    )
-
+            <h1>No data obtained</h1>
+        </div> :
+        (normalPoliticsNews.map((news) => (
+            <div>
+                <div className='box'>
+                    <h3>{news.title}</h3>
+                    {news.subject}
+                    {/* <p>{news.story}</p> */}
+                    <br />
+                    <font color="blue"> <a href={news.key_source} target="_blank">Read fully story</a> </font>
+                </div><br />
+            </div>
+        )
+        ))
 
     return (
         <>
@@ -88,8 +92,8 @@ const World = () => {
             <div className="App1">
                 <Carousel breakPoints={breakPoints}>
                     {console.log('dl 1', dataLoaded)}
-                    {console.log('siz of doc :- ', worldNews.length, dataLoaded)}
-                    {dataLoaded ? worldNews.map((document) =>
+                    {console.log('siz of doc :- ', politicsNews.length, dataLoaded)}
+                    {dataLoaded ? politicsNews.map((document) =>
                         <Item><ActionAreaCard
                             title={document.title}
                             subject={document.subject}
@@ -103,10 +107,10 @@ const World = () => {
             <hr />
 
             <div>
-                {normalWorldNewsList}
+                {normalPoliticsNewsList}
             </div>
         </>
     )
 }
 
-export default World;
+export default Politics;

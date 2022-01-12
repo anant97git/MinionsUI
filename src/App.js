@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TopNav from './components/TopNav';
-import  SideNav  from './components/SideNav';
+import SideNav from './components/SideNav';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import RowAndColumnSpacing from './components/RowAndColumnSpacing';
 import Bollywood from './routers/Bollywood';
@@ -11,6 +11,8 @@ import World from './routers/World';
 import India from './routers/India';
 import Inline from './components/Inline';
 import Sports from './routers/Sports';
+import Politics from './routers/Politics';
+
 
 function App() {
   return (
@@ -26,13 +28,14 @@ function App() {
               <Route path="/world" element={<World />} />
               <Route path="/india" element={<India />} />
               <Route path="/sports" element={<Sports />} />
+              <Route path="/politics" element={<Politics />} />
             </Routes>
           </BrowserRouter>
         </div></div></>
-     // {/* <SideNav/> */}
-     // {/* <Inline/> */}
+    // {/* <SideNav/> */}
+    // {/* <Inline/> */}
 
-    
+
   );
 }
 

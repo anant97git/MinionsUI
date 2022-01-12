@@ -1,19 +1,32 @@
 import React from "react";
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import ActionAreaCard from "../components/ActionAreaCard";
+import Carousel from "react-elastic-carousel";
+import Item from "./Item";
 
+const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 2 },
+    // { width: 768, itemsToShow: 3 },
+    // { width: 1200, itemsToShow: 4 },
+];
 
 const Sports = () => {
 
     const [sportsNews, setSportsNews] = useState([]);
+    const [useremail, setUseremail] = useState(null);
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [normalSportsNews, setNormalSportsNews] = useState([]);
 
     const [cond, setCond] = useState(0);
 
     useEffect(() => {
 
-        console.log('sports news');
-        const getSportsNewApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=51&recordscount=50&wt=json&category=Sports';
+        console.log(' top 10 sports news');
+        const getSportsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&category=Sports&user=' + useremail;
 
-        fetch(getSportsNewApi)
+        fetch(getSportsNewsApi)
             .then(response => response.json())
             .then(response => {
                 console.log('type of response :- ', typeof response);
@@ -22,14 +35,31 @@ const Sports = () => {
                 console.log('doc :-  ', response.result.doc);
                 console.log(Array.isArray(response.result.doc));
 
-                setSportsNews(response.result.doc)
+                setSportsNews(response.result.doc);
 
-                console.log('spot :- ', sportsNews);
-                console.log('length of array :- ', sportsNews.length)
+                setDataLoaded(true);
+            })
+            .catch(error => console.log(error))
 
-                // worldNews.forEach(element => {
-                //     console.log('el :', element)
-                // });
+    }, [])
+
+
+    useEffect(() => {
+
+        console.log('normal Sports news');
+
+        const getNormalSportsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=50&wt=json&category=Sports&user=' + useremail;
+
+        fetch(getNormalSportsNewsApi)
+            .then(response => response.json())
+            .then(response => {
+                console.log('type of response :- ', typeof response);
+                console.log('response :-  ', response);
+                console.log('type of doc :- ', typeof response.result.doc);
+                console.log('doc :-  ', response.result.doc);
+                console.log(Array.isArray(response.result.doc));
+
+                setNormalSportsNews(response.result.doc);
 
             })
             .catch(error => console.log(error))
@@ -37,33 +67,50 @@ const Sports = () => {
     }, [])
 
     // Note :- It has some issues
-    // const sportsNewsList = (sportsNews === []) ?
-    //     <div>
-    //         <h1>No data obtained</h1>
-    //     </div> :
-    //     (sportsNews.map((news) => (
-    //         <div>
-    //             <center>
-    //                 <h3>{news.title}</h3>
-    //                 {news.subject}
-    //                 {/* <p>{news.story}</p> */}
-    //                 <br />
-    //                 <font color="blue"> <a href={news.key_source}>Read fully story</a> </font>
-    //                 <br />
-    //             </center>
-    //         </div>
-    //     )
-    //     ))
+    const normalSportsNewsList = (normalSportsNews.length === 0) ?
+        <div>
+            <h1>No data obtained</h1>
+        </div> :
+        (normalSportsNews.map((news) => (
+            <div>
+                <div className='box'>
+                    <h3>{news.title}</h3>
+                    {news.subject}
+                    {/* <p>{news.story}</p> */}
+                    <br />
+                    <font color="blue"> <a href={news.key_source} target="_blank">Read fully story</a> </font>
+                </div><br />
+            </div>
+        )
+        ))
 
     return (
-        <div>
-            <div className='dummyClass'>
-                <h1>Hello Sports</h1>
+        <>
+            {/* <div className='dummyClass'> 
+                <h1>Hello India</h1>
+            </div> */}
+
+            <div className="App1">
+                <Carousel breakPoints={breakPoints}>
+                    {console.log('dl 1', dataLoaded)}
+                    {console.log('siz of doc :- ', sportsNews.length, dataLoaded)}
+                    {dataLoaded ? sportsNews.map((document) =>
+                        <Item><ActionAreaCard
+                            title={document.title}
+                            subject={document.subject}
+                            story={document.story}
+                            key_source={document.key_source}
+                            msid={document.datasourceId !== undefined ? document.datasourceId : null}
+                        />{console.log('dl 2', dataLoaded)}</Item>
+                    ) : null}
+                </Carousel>
             </div>
+            <hr />
+
             <div>
-                {/* {sportsNewsList} */}
+                {normalSportsNewsList}
             </div>
-        </div>
+        </>
     )
 }
 

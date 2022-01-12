@@ -14,26 +14,25 @@ import Sports from './routers/Sports';
 
 function App() {
   return (
-    <div><div className="App">
+    <><div className="App">
       <TopNav />
-    </div>
-    <div><SideNav /></div>
-    <div className="MainContent">
-        <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path='/home' element={<Home />} />
-            <Route path="/bollywood" element={<Bollywood />} />
-            <Route path="/world" element={<World />} />
-            <Route path="/india" element={<India />} />
-            <Route path="/sports" element={<Sports />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-      {/* <SideNav/> */}
-      {/* <Inline/> */}
+    </div><div><SideNav />
+        <div className="MainContent">
+          <BrowserRouter>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path='/home' element={<Home />} />
+              <Route path="/bollywood" element={<Bollywood />} />
+              <Route path="/world" element={<World />} />
+              <Route path="/india" element={<India />} />
+              <Route path="/sports" element={<Sports />} />
+            </Routes>
+          </BrowserRouter>
+        </div></div></>
+     // {/* <SideNav/> */}
+     // {/* <Inline/> */}
 
-    </div>
+    
   );
 }
 

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import ActionAreaCard from "../components/ActionAreaCard";
 import { Title } from "@mui/icons-material";
+import './Home.css';
 
 
 const breakPoints = [
@@ -79,15 +80,15 @@ function Home() {
 
   const normalNewsList = normalNews.map((news) => (
     <div>
-      <center>
+      <div className='box'>
         <h3>{news.title}</h3>
         {news.subject}
         {/* <p>{news.story}</p> */}
         <br />
-        <font color="blue"> <a href={news.key_source}>Read fully story</a> </font>
-        <br />
-      </center>
-    </div>)
+        <font color="blue"> <a href={news.key_source} target="_blank">Read fully story</a> </font>
+      </div><br />
+    </div>
+  )
   )
 
 

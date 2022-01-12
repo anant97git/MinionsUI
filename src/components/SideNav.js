@@ -10,7 +10,7 @@ return (
    <br></br>
    <a href="politics">Politics</a>
    <br></br>
-   <a href="sports">Sports</a>
+   <a href="Sports">Sports</a>
 </div>
  );
 };

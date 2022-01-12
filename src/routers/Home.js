@@ -29,11 +29,73 @@ function Home() {
   const [normalNews, setNormalNews] = useState([]);
 
 
+  const [useremail, setUseremail] = useState(null);
+
+  useEffect(() => {
+
+      console.log(window.location.href);
+      if (window.location.href.includes("ticketId") && window.location.href.includes("status")) {
+  
+        const queryParams = new URLSearchParams(window.location.search);
+        const ticketId = queryParams.get('ticketId');
+        console.log(ticketId)
+        const getUserDetailApi = 'http://jssostg.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&channel=minions&ticketId=' + ticketId;
+        console.log(getUserDetailApi)
+  
+        axios.get('https://serene-caverns-15409.herokuapp.com/' + getUserDetailApi).then((response) => {
+  
+          if(response.data.code === "200")
+          {
+            console.log("Home",response.data.primaryEmailId)
+            const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&user='+response.data.primaryEmailId;
+            console.log(getTrendingNewsApi);
+            setUseremail(response.data.primaryEmailId);
+            fetch(getTrendingNewsApi)
+              .then(response => response.json())
+              .then(response => {
+                console.log('type of response :- ', typeof response);
+                console.log('response :-  ', response);
+                console.log('type of doc :- ', typeof response.result.doc);
+                console.log('doc :-  ', response.result.doc);
+                console.log(Array.isArray(response.result.doc));
+        
+                setDocuments(response.result.doc)
+        
+                documents.forEach(element => {
+                  console.log('el :', element)
+                });
+        
+                setDataLoaded(true);
+              })
+              .catch(error => console.log(error))
+        
+            const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json&user='+response.data.primaryEmailId;
+        
+            fetch(getNormalNewsApi)
+              .then(response => response.json())
+              .then(response => {
+                console.log('type of response :- ', typeof response);
+                console.log('response :-  ', response);
+                console.log('type of doc :- ', typeof response.result.doc);
+                console.log('doc :-  ', response.result.doc);
+                console.log(Array.isArray(response.result.doc));
+                setNormalNews(response.result.doc)
+                normalNews.forEach(element => {
+                  console.log('el :', element)
+                });
+                setDataLoaded(true);
+              })
+              .catch(error => console.log(error))
+            }
+        }).catch(error => console.log(error))
+        console.log("--- " + ticketId);
+        console.log('getNews');
+    }}, [window.location.href]);
 
   useEffect(() => {
     console.log('getNews');
 
-    const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json';
+    const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&user='+useremail;
     console.log(getTrendingNewsApi);
 
     fetch(getTrendingNewsApi)
@@ -55,7 +117,7 @@ function Home() {
       })
       .catch(error => console.log(error))
 
-    const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json';
+    const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json&user='+useremail;
 
     fetch(getNormalNewsApi)
       .then(response => response.json())

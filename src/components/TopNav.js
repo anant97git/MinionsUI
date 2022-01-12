@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import './TopNav.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import cookie from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 const pages = [];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -27,6 +29,8 @@ const TopNav = () => {
   const [username, setUsername] = useState(null);
 
   const [useremail, setUseremail] = useState(null);
+
+  const [cookies, setCookie,removeCookie] = useCookies(['user']);
 
   // api for validating user :- https://jsso.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&ticketId=
 
@@ -59,6 +63,10 @@ const TopNav = () => {
         {
           setUsername(response.data.firstName);
           setUseremail(response.data.primaryEmailId);
+          setCookie('Name', response.data.firstName, { path: '/' });
+          setCookie('Email', response.data.primaryEmailId, { path: '/' });
+          console.log("abcd")
+          //cookie.save('Email', response.data.primaryEmailId, { path: '/' });
         }
         else
         {
@@ -75,12 +83,13 @@ const TopNav = () => {
         console.log('qparam :-' + qparam);
         console.log(response.data);
         setIsLoggedIn(1);
+
       }).catch(error => console.log(error))
 
-
+    
       console.log("--- " + ticketId);
     }
-
+  
   }, [window.location.href])
 
   const callLogout = () => {
@@ -111,7 +120,24 @@ const TopNav = () => {
     setIsLoggedIn(1);
   }
 
-
+  const deleteCookie = () => {
+    removeCookie('Name');
+    removeCookie('Email');
+    setUsername(null);
+    setUseremail(null);
+    window.location.reload();
+  }
+  const pagereload = () => {
+    console.log('hello world!');
+    setTimeout(() => {
+      console.log('hello world!');
+      window.location.reload();
+    }, 5000);
+    // removeCookie('Name');
+    // removeCookie('Email');
+    // setUsername(null);
+    // setUseremail(null);
+  }
 
   return (
     <AppBar position="static" id="appbar">
@@ -141,13 +167,13 @@ const TopNav = () => {
 
               <IconButton>
                 {/* {isLoggedIn ? <div> {username} <a onClick={callLogout}  */}
-      
-                {isLoggedIn ? <div> {username} {useremail}<a
-                  href='https://jssostg.indiatimes.com/sso/identity/profile/logout/external?channel=minions&ru=http://localhost:3000/'
-                >Logout</a></div> :
+                {console.log('Cookie email',cookies.Email)}
+                {cookies.Email ? <div onClick={deleteCookie}> {cookies.Name} <br/>
+                Logout</div> : <div onClick={pagereload}>
                   <a
                     href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
                   >Login</a>
+                  </div>
 
                 }
               </IconButton>

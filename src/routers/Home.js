@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import ActionAreaCard from "../components/ActionAreaCard";
 import { Title } from "@mui/icons-material";
 import './Home.css';
+import { useCookies } from 'react-cookie';
 
 
 const breakPoints = [
@@ -31,6 +32,8 @@ function Home() {
 
   const [useremail, setUseremail] = useState(null);
 
+  const [cookies, setCookie,removeCookie] = useCookies(['user']);
+
   useEffect(() => {
 
       console.log(window.location.href);
@@ -47,7 +50,7 @@ function Home() {
           if(response.data.code === "200")
           {
             console.log("Home",response.data.primaryEmailId)
-            const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&user='+response.data.primaryEmailId;
+            const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&user='+cookies.Email;
             console.log(getTrendingNewsApi);
             setUseremail(response.data.primaryEmailId);
             fetch(getTrendingNewsApi)
@@ -69,7 +72,7 @@ function Home() {
               })
               .catch(error => console.log(error))
         
-            const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json&user='+response.data.primaryEmailId;
+            const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json&user='+cookies.Email;
         
             fetch(getNormalNewsApi)
               .then(response => response.json())
@@ -95,7 +98,7 @@ function Home() {
   useEffect(() => {
     console.log('getNews');
 
-    const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&user='+useremail;
+    const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&user='+cookies.Email;
     console.log(getTrendingNewsApi);
 
     fetch(getTrendingNewsApi)
@@ -117,7 +120,7 @@ function Home() {
       })
       .catch(error => console.log(error))
 
-    const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json&user='+useremail;
+    const getNormalNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=100&wt=json&user='+cookies.Email;
 
     fetch(getNormalNewsApi)
       .then(response => response.json())

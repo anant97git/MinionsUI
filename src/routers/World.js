@@ -4,7 +4,7 @@ import axios from 'axios';
 import ActionAreaCard from "../components/ActionAreaCard";
 import Carousel from "react-elastic-carousel";
 import Item from "./Item";
-
+import { useCookies } from 'react-cookie';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2 },
@@ -18,12 +18,13 @@ const World = () => {
     const [useremail, setUseremail] = useState(null);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [normalWorldNews, setNormalWorldNews] = useState([]);
+    const [cookies, setCookie,removeCookie] = useCookies(['user']);
 
     useEffect(() => {
 
         console.log('top 10 world news');
 
-        const getTrendingWorldNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&coverage=International&user=' + useremail;
+        const getTrendingWorldNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&coverage=International&user=' + cookies.Email;
 
         fetch(getTrendingWorldNewsApi)
             .then(response => response.json())
@@ -47,7 +48,7 @@ const World = () => {
 
         console.log('normal world news');
 
-        const getNormalWorldNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=50&wt=json&coverage=International&user=' + useremail;
+        const getNormalWorldNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=50&wt=json&coverage=International&user=' + cookies.Email;
 
         fetch(getNormalWorldNewsApi)
             .then(response => response.json())

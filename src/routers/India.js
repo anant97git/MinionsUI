@@ -4,7 +4,7 @@ import axios from 'axios';
 import ActionAreaCard from "../components/ActionAreaCard";
 import Carousel from "react-elastic-carousel";
 import Item from "./Item";
-
+import { useCookies } from 'react-cookie';
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 550, itemsToShow: 2 },
@@ -18,6 +18,7 @@ const India = () => {
   const [useremail, setUseremail] = useState(null);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [documents, setDocuments] = useState([]);
+  const [cookies, setCookie,removeCookie] = useCookies(['user']);
 
   useEffect(() => {
     if (window.location.href.includes("ticketId") && window.location.href.includes("status")) {
@@ -62,7 +63,7 @@ const India = () => {
 
   useEffect(() => {
 
-    const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&category=India&user=' + useremail;
+    const getTrendingNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&category=India&user=' + cookies.Email;
     console.log(getTrendingNewsApi);
     fetch(getTrendingNewsApi)
       .then(response => response.json())
@@ -88,7 +89,7 @@ const India = () => {
   useEffect(() => {
 
     console.log('india news');
-    const getIndiaNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=50&wt=json&category=India&user=' + useremail;
+    const getIndiaNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=50&wt=json&category=India&user=' + cookies.Email;
 
     fetch(getIndiaNewsApi)
       .then(response => response.json())

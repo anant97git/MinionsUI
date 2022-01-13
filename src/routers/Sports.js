@@ -4,7 +4,7 @@ import axios from 'axios';
 import ActionAreaCard from "../components/ActionAreaCard";
 import Carousel from "react-elastic-carousel";
 import Item from "./Item";
-
+import { useCookies } from 'react-cookie';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2 },
@@ -18,13 +18,15 @@ const Sports = () => {
     const [useremail, setUseremail] = useState(null);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [normalSportsNews, setNormalSportsNews] = useState([]);
+    const [cookies, setCookie,removeCookie] = useCookies(['user']);
+
 
     const [cond, setCond] = useState(0);
 
     useEffect(() => {
 
         console.log(' top 10 sports news');
-        const getSportsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&category=Sports&user=' + useremail;
+        const getSportsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=0&recordscount=10&wt=json&category=Sports&user=' + cookies.Email;
 
         fetch(getSportsNewsApi)
             .then(response => response.json())
@@ -48,7 +50,7 @@ const Sports = () => {
 
         console.log('normal Sports news');
 
-        const getNormalSportsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=50&wt=json&category=Sports&user=' + useremail;
+        const getNormalSportsNewsApi = 'http://172.29.38.107:8082/minions/search/trendingNews?start=10&recordscount=50&wt=json&category=Sports&user=' + cookies.Email;
 
         fetch(getNormalSportsNewsApi)
             .then(response => response.json())

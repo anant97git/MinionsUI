@@ -59,8 +59,9 @@ const Politics = () => {
                 console.log('doc :-  ', response.result.doc);
                 console.log(Array.isArray(response.result.doc));
 
-                setNormalPoliticsNews(response.result.doc);
-
+                if (Array.isArray(response.result.doc)) {
+                    setNormalPoliticsNews(response.result.doc);
+                }
             })
             .catch(error => console.log(error))
 

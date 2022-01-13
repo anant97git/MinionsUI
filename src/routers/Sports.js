@@ -59,8 +59,9 @@ const Sports = () => {
                 console.log('doc :-  ', response.result.doc);
                 console.log(Array.isArray(response.result.doc));
 
-                setNormalSportsNews(response.result.doc);
-
+                if (Array.isArray(response.result.doc)) {
+                    setNormalSportsNews(response.result.doc);
+                }
             })
             .catch(error => console.log(error))
 

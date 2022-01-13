@@ -1,12 +1,21 @@
 import * as React from 'react';
+import TopNav from '../components/TopNav';
+import SideNav from '../components/SideNav';
+import ReactDOM from 'react-dom';
 
-export default function Story({ title, subject, story, key_source, msid }) {
-    return
-    (
+const Story = (props) => {
+    const { name } = (props.location && props.location.state) || {}
+    console.log('value of state :- ', props);
+    return (
         <div>
-            <h1>{title}</h1>
-            <p>{subject}</p>
-            {story}
+            <h1>hello story</h1>
+            <h1>hello story</h1>
+            <h1>hello story</h1>
+            <h1>hello story</h1>
+            <h1>somval {name}</h1>
         </div>
-    );
+    )
 }
+
+
+export default Story;

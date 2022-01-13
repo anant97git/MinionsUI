@@ -12,6 +12,7 @@ import India from './routers/India';
 import Inline from './components/Inline';
 import Sports from './routers/Sports';
 import Politics from './routers/Politics';
+import Story from './routers/Story';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Route path="/india" element={<India />} />
               <Route path="/sports" element={<Sports />} />
               <Route path="/politics" element={<Politics />} />
+              <Route path="/story" element={<Story />} />
             </Routes>
           </BrowserRouter>
         </div></div></>

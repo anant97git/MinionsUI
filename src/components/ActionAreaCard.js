@@ -4,17 +4,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { Link } from "react-router-dom";
 
-export default function ActionAreaCard({ title, subject, story, key_source,msid }) {
-  
+export default function ActionAreaCard({ title, subject, story, key_source, msid }) {
+
   return (
     <Card sx={{ maxWidth: 550 }}>
       <CardActionArea>
-        {console.log("MSId" ,msid)}
+        {console.log("MSId", msid)}
         <CardMedia
           component="img"
           height="140"
-          image={"http://172.29.38.107:8082/minions/image/getImage?msid="+msid}
+          image={"http://172.29.38.107:8082/minions/image/getImage?msid=" + msid}
           alt="green iguana"
         />
         <CardContent>
@@ -27,5 +28,6 @@ export default function ActionAreaCard({ title, subject, story, key_source,msid 
         </CardContent>
       </CardActionArea>
     </Card>
+
   );
 }

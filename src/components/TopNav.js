@@ -30,7 +30,7 @@ const TopNav = () => {
 
   const [useremail, setUseremail] = useState(null);
 
-  const [cookies, setCookie,removeCookie] = useCookies(['user']);
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
   // api for validating user :- https://jsso.indiatimes.com/sso/crossdomain/v1liteUserProfile?responsetype=json&type=JSON&update=true&siteId=eec5b06ed436ddefdb4c3a59c5ea0468&ticketId=
 
@@ -84,10 +84,10 @@ const TopNav = () => {
 
       }).catch(error => console.log(error))
 
-    
+
       console.log("--- " + ticketId);
     }
-  
+
   }, [window.location.href])
 
   const callLogout = () => {
@@ -166,13 +166,13 @@ const TopNav = () => {
               <IconButton>
                 {/* {isLoggedIn ? <div> {username} <a onClick={callLogout}  */}
 
-                {console.log('Cookie email',cookies.Email)}
-                {cookies.Email ? <div onClick={deleteCookie}> {cookies.Name} <br/>
-                Logout</div> : <div onClick={pagereload}>
+                {console.log('Cookie email', cookies.Email)}
+                {cookies.Email ? <div onClick={deleteCookie}> {cookies.Name} <br />
+                  Logout</div> : <div onClick={pagereload}>
                   <a
                     href="https://jssostg.indiatimes.com/sso/identity/login?channel=minions&ru=http://localhost:3000/"
                   >Login</a>
-                  </div>
+                </div>
 
 
                 }
